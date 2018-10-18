@@ -26,7 +26,7 @@
       ],
       "headless": true,
       "machine_type": "pc",
-      "accelerator": "kvm",
+      "accelerator": "tcg",
       "http_directory": "http",
       "http_port_min": 10082,
       "http_port_max": 10089,
