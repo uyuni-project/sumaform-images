@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: hashicorp/packer:1.3.1
+    working_directory: ~/packer
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: PACKER_LOG=1 packer build centos7.json
+          no_output_timeout: 30m
+      - store_artifacts:
+          path: output-centos7/centos7
