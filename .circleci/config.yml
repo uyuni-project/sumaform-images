@@ -1,45 +1,45 @@
 version: 2
 jobs:
-  build:
+  validate:
     docker:
-      - image: moiosuse/sumaform-images-circleci:1.0
+      - image: moiosuse/sumaform-images-circleci:2.0
     working_directory: ~/packer
     steps:
       - checkout
-      - attach_workspace:
-          at: ./artifacts
       - run:
-          name: Run Packer
-          command: |
-            mkdir output &&
-            PACKER_LOG=1 packer build centos7.json &&
-            mv output-centos7/centos7 output/centos7.qcow2
-      - persist_to_workspace:
-          root: output
-          paths:
-            - '*.qcow2'
+          name: Run Packer Validation
+          command: PACKER_LOG=1 packer validate centos7.json
 
-  publish-github-release:
+  build:
     docker:
-      - image: cibuilds/github:0.12.0
+      - image: moiosuse/sumaform-images-circleci:2.0
+    working_directory: ~/packer
     steps:
-      - attach_workspace:
-          at: ./artifacts
+      - checkout
       - run:
-          name: "Publish Release on GitHub"
+          name: Run Packer Build
           command: |
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} ./artifacts/
+            if [ -z "${CIRCLE_TAG:-}" ]; then
+              echo "This is not a tagged version, not releasing to GitHub"
+            else
+              # PACKER_LOG=1 packer build centos7.json
+              mkdir output
+              #mv output-centos7/centos7 output/centos7.qcow2
+              echo test > output/centos7.qcow2
+              echo ghr -t TOKETI -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} output
+              ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} output
+            fi
 
 workflows:
   version: 2
-  main:
+  on-push:
     jobs:
-      - build
-      - publish-github-release:
-          requires:
-            - build
+      - validate
+  on-release:
+    jobs:
+      - build:
           filters:
             branches:
-              only: master
+              ignore: /.*/
             tags:
               only: /^\d+\.\d+\.\d+$/
