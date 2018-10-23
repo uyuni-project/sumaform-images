@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Prepare
-          command: apk add qemu-system-x86_64 libvirt
+          command: apk update; apk add qemu-system-x86_64 libvirt
       - run:
           name: Build
           command: PACKER_LOG=1 packer build centos7.json
