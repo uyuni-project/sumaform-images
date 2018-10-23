@@ -9,15 +9,15 @@ jobs:
       - attach_workspace:
           at: ./artifacts
       - run:
-        name: Run Packer
-        command: |
-          mkdir output &&
-          PACKER_LOG=1 packer build centos7.json &&
-          mv output-centos7/centos7 output/centos7.qcow2
+          name: Run Packer
+          command: |
+            mkdir output &&
+            PACKER_LOG=1 packer build centos7.json &&
+            mv output-centos7/centos7 output/centos7.qcow2
       - persist_to_workspace:
-        root: output
-        paths:
-          - '*.qcow2'
+          root: output
+          paths:
+            - '*.qcow2'
 
   publish-github-release:
     docker:
