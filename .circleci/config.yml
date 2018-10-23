@@ -8,7 +8,10 @@ jobs:
       - checkout
       - run:
           name: Run Packer Validation
-          command: PACKER_LOG=1 packer validate centos7.json
+          command: |
+            for i in $(ls *.json); do
+              packer validate $i
+            done
 
   build:
     docker:
@@ -19,16 +22,11 @@ jobs:
       - run:
           name: Run Packer Build
           command: |
-            if [ -z "${CIRCLE_TAG:-}" ]; then
-              echo "This is not a tagged version, not releasing to GitHub"
-            else
-              # PACKER_LOG=1 packer build centos7.json
-              mkdir output
-              #mv output-centos7/centos7 output/centos7.qcow2
-              echo test > output/centos7.qcow2
-              echo ghr -t TOKETI -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} output
-              ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} output
-            fi
+            for i in $(ls *.json); do
+              rm -rf output
+              PACKER_LOG=1 packer build $i
+              ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} ${CIRCLE_TAG} output
+            done
 
 workflows:
   version: 2

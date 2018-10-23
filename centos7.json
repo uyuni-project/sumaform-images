@@ -21,6 +21,7 @@
       "shutdown_command": "shutdown -P now",
       "disk_size": 204800,
       "format": "qcow2",
+      "output_directory": "output",
       "qemuargs": [
         [ "-m", "1024M" ]
       ],
