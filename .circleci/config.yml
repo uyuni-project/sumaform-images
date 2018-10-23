@@ -2,16 +2,44 @@ version: 2
 jobs:
   build:
     docker:
-      - image: hashicorp/packer:1.3.1
+      - image: moiosuse/sumaform-images-circleci:1.0
     working_directory: ~/packer
     steps:
       - checkout
+      - attach_workspace:
+          at: ./artifacts
       - run:
-          name: Prepare
-          command: apk update && apk add qemu-system-x86_64 libvirt qemu-img
+        name: Run Packer
+        command: |
+          mkdir output &&
+          PACKER_LOG=1 packer build centos7.json &&
+          mv output-centos7/centos7 output/centos7.qcow2
+      - persist_to_workspace:
+        root: output
+        paths:
+          - '*.qcow2'
+
+  publish-github-release:
+    docker:
+      - image: cibuilds/github:0.12.0
+    steps:
+      - attach_workspace:
+          at: ./artifacts
       - run:
-          name: Build
-          command: PACKER_LOG=1 packer build centos7.json
-          no_output_timeout: 30m
-      - store_artifacts:
-          path: output-centos7/centos7
+          name: "Publish Release on GitHub"
+          command: |
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} ./artifacts/
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build
+      - publish-github-release:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /^\d+\.\d+\.\d+$/
