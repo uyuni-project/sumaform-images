@@ -1,8 +1,16 @@
+## Trying out a build locally
+
+```
+docker run -it --entrypoint "/bin/bash" -v `pwd`:/packer moiosuse/sumaform-images-circleci:2.0
+
+cd /packer; packer build
+```
+
 ## Modifying the CircleCI Docker image
 
 ```
 export REPOSITORY=moiosuse/sumaform-images-circleci
-export VERSION=1.0
+export VERSION=2.0
 
 cd .circleci
 docker build -t $REPOSITORY:$VERSION .
