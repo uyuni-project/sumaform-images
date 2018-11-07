@@ -37,6 +37,8 @@
       "ssh_password": "linux",
       "ssh_port": 22,
       "ssh_wait_timeout": "90m",
+      "vnc_port_min": 5900,
+      "vnc_port_max": 5900,
       "vm_name": "centos7",
       "disk_interface": "virtio",
       "net_device": "virtio-net-pci",
