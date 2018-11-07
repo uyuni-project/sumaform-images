@@ -40,7 +40,7 @@
       "ssh_wait_timeout": "90m",
       "vnc_port_min": 5900,
       "vnc_port_max": 5900,
-      "vm_name": "centos7openstack",
+      "vm_name": "centos7openstack.qcow2",
       "disk_interface": "virtio",
       "net_device": "virtio-net-pci",
       "boot_command": [
