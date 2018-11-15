@@ -1,0 +1,51 @@
+{
+  "builders": [{
+      "name": "ubuntu1804",
+      "type": "qemu",
+      "iso_checksum": "87bedd68607f059ca973f86346bbdf1caa6e1077",
+      "iso_checksum_type": "sha1",
+      "iso_url": "http://cdimage.ubuntu.com/ubuntu/releases/bionic/release/ubuntu-18.04.1-server-amd64.iso",
+      "ssh_wait_timeout": "30s",
+      "shutdown_command": "shutdown -P now",
+      "disk_size": 204800,
+      "format": "qcow2",
+      "output_directory": "output",
+      "qemuargs": [
+        [ "-m", "1024M" ]
+      ],
+      "headless": true,
+      "machine_type": "pc",
+      "accelerator": "tcg",
+      "http_directory": "http",
+      "http_port_min": 10082,
+      "http_port_max": 10089,
+      "ssh_host_port_min": 2222,
+      "ssh_host_port_max": 2229,
+      "ssh_username": "root",
+      "ssh_password": "linux",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "90m",
+      "vnc_port_min": 5900,
+      "vnc_port_max": 5900,
+      "vm_name": "ubuntu1804.qcow2",
+      "disk_interface": "virtio",
+      "net_device": "virtio-net-pci",
+      "boot_command": [
+        "<enter><f6><esc>",
+        " console=tty0 console=ttyS0,115200",
+        " auto",
+        " console-setup/ask_detect=false",
+        " console-setup/layoutcode=us",
+        " console-setup/modelcode=pc105",
+        " debconf/frontend=noninteractive",
+        " kbd-chooser/method=us",
+        " keyboard-configuration/layout=USA",
+        " keyboard-configuration/variant=USA",
+        " locale=en_US",
+        " netcfg/get_domain=local",
+        " netcfg/get_hostname=linux",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed_ubuntu1804.cfg",
+        "<enter><wait>"
+      ]
+    }]
+}
