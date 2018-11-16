@@ -1,4 +1,4 @@
-FROM hashicorp/packer:1.3.1
+FROM hashicorp/packer:1.3.2
 
 MAINTAINER Silvio Moioli "moio@suse.de"
 
