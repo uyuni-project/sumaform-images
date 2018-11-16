@@ -1,4 +1,15 @@
 {
+  "provisioners": [{
+    "type": "shell",
+    "scripts": [
+      "scripts/ubuntu.sh"
+    ],
+    "override": {
+      "ubuntu1804": {
+        "execute_command": "sh '{{.Path}}'"
+      }
+    }
+  }],
   "builders": [{
       "name": "ubuntu1804",
       "type": "qemu",
@@ -29,7 +40,9 @@
       "vnc_port_max": 5900,
       "vnc_bind_address": "0.0.0.0",
       "vm_name": "ubuntu1804.qcow2",
-      "disk_interface": "virtio",
+      "disk_interface": "virtio-scsi",
+      "disk_discard": "unmap",
+      "disk_detect_zeroes": "unmap",
       "net_device": "virtio-net-pci",
       "boot_command": [
         "<enter><f6><esc>",

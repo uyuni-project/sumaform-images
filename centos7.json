@@ -41,7 +41,9 @@
       "vnc_port_max": 5900,
       "vnc_bind_address": "0.0.0.0",
       "vm_name": "centos7.qcow2",
-      "disk_interface": "virtio",
+      "disk_interface": "virtio-scsi",
+      "disk_discard": "unmap",
+      "disk_detect_zeroes": "unmap",
       "net_device": "virtio-net-pci",
       "boot_command": [
         "i<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks_centos7.cfg<enter><wait>"
