@@ -2,8 +2,8 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
-      "scripts/base.sh",
-      "scripts/cleanup.sh"
+      "scripts/centos-networking.sh",
+      "scripts/centos-cleanup.sh"
     ],
     "override": {
       "centos7": {

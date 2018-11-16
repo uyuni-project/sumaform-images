@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -xe
+
 # Make SSH faster by not waiting on DNS
 echo "UseDNS no" >> /etc/ssh/sshd_config
 

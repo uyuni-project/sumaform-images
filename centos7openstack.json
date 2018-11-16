@@ -2,9 +2,9 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
-      "scripts/base.sh",
-      "scripts/cloud.sh",
-      "scripts/cleanup.sh"
+      "scripts/centos-networking.sh",
+      "scripts/centos-cloud.sh",
+      "scripts/centos-cleanup.sh"
     ],
     "override": {
       "centos7openstack": {

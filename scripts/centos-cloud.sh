@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -xe
+
 # Configure serial console
 yum -y install grub2-tools
 

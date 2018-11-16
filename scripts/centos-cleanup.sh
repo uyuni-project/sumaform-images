@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -xe
+
 yum -y erase gtk2 libX11 hicolor-icon-theme freetype bitstream-vera-fonts
 yum -y clean all
 

@@ -2,7 +2,7 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
-      "scripts/ubuntu.sh"
+      "scripts/ubuntu-cleanup.sh"
     ],
     "override": {
       "ubuntu1804": {
