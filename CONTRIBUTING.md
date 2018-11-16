@@ -1,9 +1,18 @@
 ## Trying out a build locally
 
 ```
-docker run -it --entrypoint "/bin/bash" -v `pwd`:/packer moiosuse/sumaform-images-circleci:latest
+docker run -it --entrypoint "/bin/bash" -v `pwd`:/packer -p 5900:5900 moiosuse/sumaform-images-circleci:latest
 
 cd /packer; packer build
+```
+
+In order to see the build progress you can connect via VNC to port 5900 on your host running Docker (see the `-p` option above).
+
+For example, in Ubuntu:
+```
+sudo apt install xvnc4viewer
+
+xvnc4viewer -Shared 127.0.0.1:5900
 ```
 
 ## Modifying the CircleCI Docker image
