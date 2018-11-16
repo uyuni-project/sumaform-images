@@ -46,7 +46,6 @@
       "net_device": "virtio-net-pci",
       "boot_command": [
         "<enter><f6><esc>",
-        " console=tty0 console=ttyS0,115200",
         " auto",
         " console-setup/ask_detect=false",
         " console-setup/layoutcode=us",
