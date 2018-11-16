@@ -1,6 +1,7 @@
 ## Trying out a build locally
 
 ```
+cd sumaform-images
 docker run -it --entrypoint "/bin/bash" -v `pwd`:/packer -p 5900:5900 moiosuse/sumaform-images-circleci:latest
 
 cd /packer; packer build
@@ -21,7 +22,7 @@ xvnc4viewer -Shared 127.0.0.1:5900
 export REPOSITORY=moiosuse/sumaform-images-circleci
 export VERSION=2.1
 
-cd .circleci
+cd sumaform-images/.circleci
 docker build -t $REPOSITORY:$VERSION .
 docker login
 docker push $REPOSITORY:$VERSION
