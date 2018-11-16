@@ -19,13 +19,13 @@ xvnc4viewer -Shared 127.0.0.1:5900
 ## Modifying the CircleCI Docker image
 
 ```
-export REPOSITORY=moiosuse/sumaform-images-circleci
+export IMAGE=moiosuse/sumaform-images-circleci
 export VERSION=2.1
 
 cd sumaform-images/.circleci
-docker build -t $REPOSITORY:$VERSION .
+docker build -t $IMAGE:$VERSION .
 docker login
-docker push $REPOSITORY:$VERSION
+docker push $IMAGE:$VERSION
 docker tag latest
 docker push $IMAGE:latest
 ```
