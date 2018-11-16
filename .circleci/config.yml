@@ -2,7 +2,7 @@ version: 2
 jobs:
   validate:
     docker:
-      - image: moiosuse/sumaform-images-circleci:2.1
+      - image: moiosuse/sumaform-images-circleci:latest
     working_directory: ~/packer
     steps:
       - checkout
@@ -15,7 +15,7 @@ jobs:
 
   build:
     docker:
-      - image: moiosuse/sumaform-images-circleci:2.1
+      - image: moiosuse/sumaform-images-circleci:latest
     working_directory: ~/packer
     steps:
       - checkout

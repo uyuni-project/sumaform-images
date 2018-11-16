@@ -1,7 +1,7 @@
 ## Trying out a build locally
 
 ```
-docker run -it --entrypoint "/bin/bash" -v `pwd`:/packer moiosuse/sumaform-images-circleci:2.1
+docker run -it --entrypoint "/bin/bash" -v `pwd`:/packer moiosuse/sumaform-images-circleci:latest
 
 cd /packer; packer build
 ```
@@ -16,6 +16,8 @@ cd .circleci
 docker build -t $REPOSITORY:$VERSION .
 docker login
 docker push $REPOSITORY:$VERSION
+docker tag latest
+docker push $IMAGE:latest
 ```
 
 Note that contributors can use their own public repository in place of moiosuse/sumaform-images-circleci, create one at hub.docker.com.
