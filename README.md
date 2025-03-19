@@ -1,3 +1,7 @@
+# Deprecated and archived
+
+We now build and publish all images using the Open Build Service: [https://build.opensuse.org/project/subprojects/systemsmanagement:sumaform](https://build.opensuse.org/project/subprojects/systemsmanagement:sumaform)
+
 # sumaform-images
 
 [![CircleCI](https://circleci.com/gh/uyuni-project/sumaform-images/tree/master.svg?style=svg)](https://circleci.com/gh/uyuni-project/sumaform-images/tree/master)
